@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<Zoomsocks.WebUI.ViewModels.ProductCategoryViewModel>
+
+<h3>Product Category Management</h3>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Product Categories</h3>      
+                <a class="btn btn-success btn-right" href="/Admin/ProductCategory/Create">
+                    <i class="fa fa-plus"></i> Create
+                </a>
+            </div>
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model)
+                        {
+                            <tr>
+                                <td>@category.Name</td>
+                                <td>
+                                    <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    <a class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
+                                </td>
+                            </tr>
+                        }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
