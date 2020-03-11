@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Zoomsocks.Common;
 using Zoomsocks.Model.Models;
@@ -48,10 +46,28 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
         public async Task<ActionResult> List(CancellationToken cancellationToken)
         {
             var productCategories = await GetAllProductCategories(cancellationToken);
-
             var viewModel = Mapper.Map<IEnumerable<ProductCategoryViewModel>>(productCategories);
 
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Delete(Guid productCategoryId, string name)
+        {
+            return PartialView("_ConfirmDeleteModal", new ProductCategoryViewModel
+            {
+                Id = productCategoryId,
+                Name = name
+            });
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Guid id)
+        {
+            productCategoryService.Delete(id);
+            productCategoryService.SaveChanges();
+
+            return RedirectToAction("List");
         }
 
         private async Task<IEnumerable<ProductCategory>> GetAllProductCategories(CancellationToken cancellationToken)

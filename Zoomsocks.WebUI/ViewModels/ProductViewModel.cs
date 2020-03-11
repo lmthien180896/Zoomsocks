@@ -1,21 +1,24 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Zoomsocks.WebUI.ViewModels
 {
     public class ProductViewModel
     {
-        [Display(Name = "Product")]
+        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         public string Alias { get; set; }
 
-        [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [Display(Name = "Image")]
         public string Image { get; set; }
 
         public Guid ProductCategoryId { get; set; }
+
+        public ProductCategoryViewModel ProductCategory { get; set; }
     }
 }

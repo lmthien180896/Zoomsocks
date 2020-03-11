@@ -1993,6 +1993,7 @@
     <Content Include="frontend\admin\plugins\sparkline\jquery.sparkline.js" />
     <Content Include="frontend\admin\plugins\sparkline\jquery.sparkline.min.js" />
     <Content Include="frontend\js\product-category-create.js" />
+    <Content Include="frontend\js\product-category-list.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
@@ -2061,6 +2062,7 @@
     <Content Include="frontend\admin\plugins\fontawesome\webfonts\fa-solid-900.ttf" />
     <Content Include="frontend\admin\plugins\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="frontend\admin\plugins\fontawesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="Areas\Admin\Views\ProductCategory\_ConfirmDeleteModal.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -2089,7 +2091,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="frontend\content\" />
     <Folder Include="frontend\css\" />
   </ItemGroup>
