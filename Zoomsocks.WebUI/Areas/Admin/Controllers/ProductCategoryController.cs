@@ -43,9 +43,9 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> List(CancellationToken cancellationToken)
+        public ActionResult List(CancellationToken cancellationToken)
         {
-            var productCategories = await GetAllProductCategories(cancellationToken);
+            var productCategories = productCategoryService.GetAll();
             var viewModel = Mapper.Map<IEnumerable<ProductCategoryViewModel>>(productCategories);
 
             return View(viewModel);
@@ -61,18 +61,33 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             });
         }
 
-        [HttpPost]
+        [HttpDelete]
         public ActionResult Delete(Guid id)
         {
             productCategoryService.Delete(id);
             productCategoryService.SaveChanges();
 
             return RedirectToAction("List");
+        }       
+
+        [HttpGet]
+        public ActionResult Edit(Guid id)
+        {
+            var productCategory = productCategoryService.GetById(id);
+            var viewModel = Mapper.Map<ProductCategoryViewModel>(productCategory);
+
+            return PartialView("_EditModal", viewModel);
         }
 
-        private async Task<IEnumerable<ProductCategory>> GetAllProductCategories(CancellationToken cancellationToken)
+        [HttpPost]
+        public ActionResult Edit(ProductCategoryViewModel viewModel)
         {
-            return productCategoryService.GetAll();
+            var productCategory = Mapper.Map<ProductCategory>(viewModel);
+
+            productCategoryService.Update(productCategory);
+            productCategoryService.SaveChanges();
+
+            return RedirectToAction("List");
         }
     }
 }

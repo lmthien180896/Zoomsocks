@@ -50,7 +50,7 @@ namespace Zoomsocks.Service
 
         public IEnumerable<ProductCategory> GetAll()
         {
-            return productCategoryRepository.GetAll();
+            return productCategoryRepository.GetAll().OrderBy(p => p.DisplayOrder);
         }
 
         public IEnumerable<ProductCategory> GetAllPaging(int page, int pageSize, out int totalRow)

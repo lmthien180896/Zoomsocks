@@ -2063,6 +2063,7 @@
     <Content Include="frontend\admin\plugins\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="frontend\admin\plugins\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Areas\Admin\Views\ProductCategory\_ConfirmDeleteModal.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductCategory\_EditModal.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

@@ -5,12 +5,8 @@
         <div class="modal-content">
             @using (Ajax.BeginForm("Delete", "ProductCategory", null, new AjaxOptions()
             {
-                HttpMethod = "POST",
-                OnBegin = "$('#saveButton').button('loading');",
-                OnSuccess = "onSuccessEditRequest",
-                OnFailure = "onFailureEditRequest",
-                OnComplete = "$('#saveButton').button('reset');"
-            }, new { @class = "modal-content form-horizontal", @id = "editRequestForm", enctype = "multipart/form-data" }))
+                HttpMethod = "DELETE",               
+            }, new { @class = "modal-content form-horizontal", @id = "deleteForm", enctype = "multipart/form-data" }))
             {
                 <div class="modal-header">
                     <h5 class="modal-title" id="confirm-delete-question">Do you want to delete @Model.Name?</h5>
