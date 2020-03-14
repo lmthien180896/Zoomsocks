@@ -5,7 +5,8 @@
         <div class="modal-content">
             @using (Ajax.BeginForm("Delete", "ProductCategory", null, new AjaxOptions()
             {
-                HttpMethod = "DELETE",               
+                HttpMethod = "DELETE",
+                OnSuccess = "onSuccessDeleteProductCategory"
             }, new { @class = "modal-content form-horizontal", @id = "deleteForm", enctype = "multipart/form-data" }))
             {
                 <div class="modal-header">

@@ -1,0 +1,42 @@
+﻿@model Zoomsocks.WebUI.ViewModels.ProductCategoryViewModel
+
+<div class="modal fade" id="create-product-category-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("Create", "ProductCategory", null, new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                OnSuccess = "onSuccessCreatePostCategory"
+            }, new { @id = "createForm", enctype = "multipart/form-data" }))
+            {
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirm-delete-question">Create product category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "product-category-name", @autocomplete = "off", @onkeyup = "generateAlias()" })
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Alias, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(m => m.Alias, new { @class = "form-control", @id = "product-category-alias", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(m => m.Alias)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.DisplayOrder, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(m => m.DisplayOrder, new { @type = "number", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.DisplayOrder)
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

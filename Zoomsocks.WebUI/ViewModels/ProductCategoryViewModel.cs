@@ -15,11 +15,15 @@ namespace Zoomsocks.WebUI.ViewModels
 
         public Guid Id { get; set; }
 
+        [Required]
+        [StringLength(100)]
         [Display(Name = "Category")]
         public string Name { get; set; }
 
+        [Required]
         public string Alias { get; set; }
 
+        [Required]
         [Display(Name = "Display Order")]
         public int DisplayOrder { get; set; }
     }

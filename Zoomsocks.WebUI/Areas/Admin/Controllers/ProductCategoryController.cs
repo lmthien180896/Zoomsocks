@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zoomsocks.Common;
 using Zoomsocks.Model.Models;
@@ -20,41 +19,53 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             this.productCategoryService = productCategoryService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Create(CancellationToken cancellationToken)
+        public ActionResult List()
         {
             return View();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Create(ProductCategoryViewModel viewModel, CancellationToken cancellationToken)
+        [HttpGet]
+        public ActionResult Create(CancellationToken cancellationToken)
         {
+            return PartialView("_Create");
+        }
+
+        [HttpPost]
+        public JsonResult Create(ProductCategoryViewModel viewModel, CancellationToken cancellationToken)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { success = false });
+            }
             var productCategory = Mapper.Map<ProductCategory>(viewModel);
             productCategoryService.Add(productCategory);
             productCategoryService.SaveChanges();
 
-            return RedirectToAction("List");
+            return Json(new { success = true, name = productCategory.Name });
         }
 
         [HttpGet]
-        public async Task<string> GetAlias(string name, CancellationToken cancellationToken)
+        public string GetAlias(string name, CancellationToken cancellationToken)
         {
             return StringHelper.ToUnsignString(name);
         }
 
         [HttpGet]
-        public ActionResult List(CancellationToken cancellationToken)
+        public JsonResult LoadAll(CancellationToken cancellationToken)
         {
             var productCategories = productCategoryService.GetAll();
-            var viewModel = Mapper.Map<IEnumerable<ProductCategoryViewModel>>(productCategories);
+            var listProductCategory = Mapper.Map<IEnumerable<ProductCategoryViewModel>>(productCategories);
 
-            return View(viewModel);
+            return Json(new
+            {
+                list = listProductCategory
+            }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult Delete(Guid productCategoryId, string name)
         {
-            return PartialView("_ConfirmDeleteModal", new ProductCategoryViewModel
+            return PartialView("_Delete", new ProductCategoryViewModel
             {
                 Id = productCategoryId,
                 Name = name
@@ -68,7 +79,7 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             productCategoryService.SaveChanges();
 
             return RedirectToAction("List");
-        }       
+        }
 
         [HttpGet]
         public ActionResult Edit(Guid id)
@@ -76,18 +87,23 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             var productCategory = productCategoryService.GetById(id);
             var viewModel = Mapper.Map<ProductCategoryViewModel>(productCategory);
 
-            return PartialView("_EditModal", viewModel);
+            return PartialView("_Edit", viewModel);
         }
 
         [HttpPost]
-        public ActionResult Edit(ProductCategoryViewModel viewModel)
+        public JsonResult Edit(ProductCategoryViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { success = false, JsonRequestBehavior.AllowGet });
+            }
+
             var productCategory = Mapper.Map<ProductCategory>(viewModel);
 
             productCategoryService.Update(productCategory);
             productCategoryService.SaveChanges();
 
-            return RedirectToAction("List");
+            return Json(new { success = true, data = productCategory, JsonRequestBehavior.AllowGet });
         }
     }
 }

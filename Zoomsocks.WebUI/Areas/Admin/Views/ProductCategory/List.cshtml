@@ -10,7 +10,7 @@
         <div class="box box-primary">
             <div class="box-header">
                 <h3 class="box-title">Product Categories</h3>
-                <a class="btn btn-success btn-right" href="/Admin/ProductCategory/Create">
+                <a class="btn btn-success btn-right" id="btn-create" onclick="displayCreateModal()">
                     <i class="fa fa-plus"></i> Create
                 </a>
             </div>
@@ -22,23 +22,23 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach (var category in Model)
-                        {
-                            <tr>
-                                <td>@category.Name</td>
-                                <td>
-                                    <a class="btn btn-danger btn-sm btn-delete-product-category" data-toggle="modal" data-target="#confirm-delete-product-category-modal" data-name="@category.Name" data-id="@category.Id"><i class="fa fa-trash"></i></a>
-                                    <a class="btn btn-primary btn-sm btn-edit-product-category" data-id="@category.Id"><i class="fa fa-pencil"></i></a>
-                                </td>
-                            </tr>
-                        }
+                    <tbody id="product-category-data"></tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
 
+<script id="template-product-category" type="x-tmpl-mustache">
+    <tr>
+        <td>{{Name}}</td>
+        <td>
+            <a class="btn btn-danger btn-sm btn-delete-product-category" data-toggle="modal" data-target="#confirm-delete-product-category-modal" onclick="displayConfirmDeletetionModal('{{Id}}', '{{Name}}')"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-primary btn-sm btn-edit-product-category" onclick="displayEditModal('{{Id}}')"><i class="fa fa-pencil"></i></a>
+        </td>
+    </tr>
+</script>
+
 @section js{
-    <script src="~/frontend/js/product-category-list.js"></script>
+    <script src="~/frontend/js/features/product-category.js"></script>
 }
