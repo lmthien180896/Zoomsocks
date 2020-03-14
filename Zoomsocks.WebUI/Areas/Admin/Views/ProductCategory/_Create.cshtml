@@ -6,11 +6,11 @@
             @using (Ajax.BeginForm("Create", "ProductCategory", null, new AjaxOptions()
             {
                 HttpMethod = "POST",
-                OnSuccess = "onSuccessCreatePostCategory"
+                OnSuccess = "onSuccessCreateProductCategory"
             }, new { @id = "createForm", enctype = "multipart/form-data" }))
             {
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirm-delete-question">Create product category</h5>
+                    <h5 class="modal-title" id="confirm-delete-question">Create new product category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

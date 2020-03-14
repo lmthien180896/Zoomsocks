@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Zoomsocks.WebUI.ViewModels
 {
@@ -17,7 +18,7 @@ namespace Zoomsocks.WebUI.ViewModels
 
         public string Image { get; set; }
 
-        public Guid ProductCategoryId { get; set; }
+        public SelectListItem[] Categories { get; set; }
 
         public ProductCategoryViewModel ProductCategory { get; set; }
     }

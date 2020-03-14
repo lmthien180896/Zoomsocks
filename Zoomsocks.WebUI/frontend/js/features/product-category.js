@@ -46,7 +46,7 @@ function displayCreateModal() {
     });
 }
 
-function onSuccessCreatePostCategory(jsonResponse) {
+function onSuccessCreateProductCategory(jsonResponse) {
     if (jsonResponse.success) {
         $('#create-product-category-modal').modal('hide');
 

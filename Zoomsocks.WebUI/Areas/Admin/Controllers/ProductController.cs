@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Zoomsocks.Common;
 using Zoomsocks.Model.Models;
@@ -9,13 +11,15 @@ using Zoomsocks.WebUI.ViewModels;
 
 namespace Zoomsocks.WebUI.Areas.Admin.Controllers
 {
-    public class ProductCategoryController : Controller
+    public class ProductController : Controller
     {
         private IProductCategoryService productCategoryService;
+        private IProductService productService;
 
-        public ProductCategoryController(IProductCategoryService productCategoryService)
+        public ProductController(IProductCategoryService productCategoryService, IProductService productService)
         {
             this.productCategoryService = productCategoryService;
+            this.productService = productService;
         }
 
         public ActionResult List()
@@ -26,20 +30,31 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return PartialView("_Create");
+            var viewModel = new ProductViewModel();
+
+            LoadCategories();
+
+            return PartialView("_Create", viewModel);
+
+            void LoadCategories()
+            {
+                var productCategories = productCategoryService.GetAll();
+                
+                viewModel.Categories = productCategories.Select(p => new SelectListItem() { Text = p.Name, Value = p.Name}).ToArray();
+            }
         }
 
         [HttpPost]
-        public JsonResult Create(ProductCategoryViewModel viewModel)
+        public JsonResult Create(ProductViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return Json(new { success = false });
             }
-            var productCategory = Mapper.Map<ProductCategory>(viewModel);
+            var productCategory = Mapper.Map<Product>(viewModel);
 
-            productCategoryService.Add(productCategory);
-            productCategoryService.SaveChanges();
+            productService.Add(productCategory);
+            productService.SaveChanges();
 
             return Json(new { success = true, name = productCategory.Name });
         }
@@ -53,21 +68,21 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public JsonResult LoadAll()
         {
-            var productCategories = productCategoryService.GetAll();
-            var listProductCategory = Mapper.Map<IEnumerable<ProductCategoryViewModel>>(productCategories);
+            var products = productService.GetAll();
+            var listProduct = Mapper.Map<IEnumerable<ProductViewModel>>(products);
 
             return Json(new
             {
-                list = listProductCategory
+                list = products
             }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult Delete(Guid productCategoryId, string name)
+        public ActionResult Delete(Guid productId, string name)
         {
             return PartialView("_Delete", new ProductCategoryViewModel
             {
-                Id = productCategoryId,
+                Id = productId,
                 Name = name
             });
         }
@@ -75,8 +90,8 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
         [HttpDelete]
         public ActionResult Delete(Guid id)
         {
-            productCategoryService.Delete(id);
-            productCategoryService.SaveChanges();
+            productService.Delete(id);
+            productService.SaveChanges();
 
             return RedirectToAction("List");
         }
@@ -84,26 +99,26 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            var productCategory = productCategoryService.GetById(id);
-            var viewModel = Mapper.Map<ProductCategoryViewModel>(productCategory);
+            var product = productService.GetById(id);
+            var viewModel = Mapper.Map<ProductViewModel>(product);
 
             return PartialView("_Edit", viewModel);
         }
 
         [HttpPost]
-        public JsonResult Edit(ProductCategoryViewModel viewModel)
+        public JsonResult Edit(ProductViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return Json(new { success = false, JsonRequestBehavior.AllowGet });
             }
 
-            var productCategory = Mapper.Map<ProductCategory>(viewModel);
+            var product = Mapper.Map<Product>(viewModel);
 
-            productCategoryService.Update(productCategory);
-            productCategoryService.SaveChanges();
+            productService.Update(product);
+            productService.SaveChanges();
 
-            return Json(new { success = true, data = productCategory, JsonRequestBehavior.AllowGet });
+            return Json(new { success = true, data = product, JsonRequestBehavior.AllowGet });
         }
     }
 }

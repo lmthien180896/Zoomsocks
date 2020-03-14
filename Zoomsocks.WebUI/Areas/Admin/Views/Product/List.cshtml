@@ -1,15 +1,15 @@
 ﻿@{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-@model IEnumerable<Zoomsocks.WebUI.ViewModels.ProductCategoryViewModel>
+@model IEnumerable<Zoomsocks.WebUI.ViewModels.ProductViewModel>
 
-<h3>Product Category Management</h3>
+<h3>Product Management</h3>
 
 <div class="row">
     <div class="col-xs-12">
         <div class="box box-primary">
             <div class="box-header">
-                <h3 class="box-title">Product Categories</h3>
+                <h3 class="box-title">Products</h3>
                 <a class="btn btn-success btn-right" id="btn-create" onclick="displayCreateModal()">
                     <i class="fa fa-plus"></i> Create
                 </a>
@@ -19,26 +19,28 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="product-category-data"></tbody>
+                    <tbody id="product-data"></tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
 
-<script id="template-product-category" type="x-tmpl-mustache">
+<script id="template-product" type="x-tmpl-mustache">
     <tr>
         <td>{{Name}}</td>
+        <td>{{Category}}</td>
         <td>
-            <a class="btn btn-danger btn-sm btn-delete-product-category" data-toggle="modal" data-target="#confirm-delete-product-category-modal" onclick="displayConfirmDeletetionModal('{{Id}}', '{{Name}}')"><i class="fa fa-trash"></i></a>
-            <a class="btn btn-primary btn-sm btn-edit-product-category" onclick="displayEditModal('{{Id}}')"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-danger btn-sm btn-delete-product" data-toggle="modal" data-target="#confirm-delete-product-modal" onclick="displayConfirmDeletetionModal('{{Id}}', '{{Name}}')"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-primary btn-sm btn-edit-product" onclick="displayEditModal('{{Id}}')"><i class="fa fa-pencil"></i></a>
         </td>
     </tr>
 </script>
 
 @section js{
-    <script src="~/frontend/js/features/product-category.js"></script>
+    <script src="~/frontend/js/features/product.js"></script>
 }

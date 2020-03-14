@@ -1,3 +1,7 @@
 ﻿.btn-right {
     float: right;
 }
+
+.close {
+    margin-bottom: 5px;
+}
