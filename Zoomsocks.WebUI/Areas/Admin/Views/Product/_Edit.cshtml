@@ -1,0 +1,58 @@
+﻿@model Zoomsocks.WebUI.ViewModels.ProductViewModel
+
+<div class="modal fade" id="edit-product-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("Edit", "Product", null, new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                OnSuccess = "onSuccessEditProduct"
+            }, new { @id = "editForm", enctype = "multipart/form-data" }))
+            {
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirm-delete-question">Edit @Model.Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="form-group">
+                        <label class="form-control-label">Category</label>
+                        @Html.DropDownListFor(m => m.ProductCategoryId, Model.Categories, "Select category", new { @class = "form-control", @id = "product-category" })
+                        @Html.ValidationMessageFor(m => m.ProductCategoryId)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "product-name", @autocomplete = "off", @onkeyup = "generateAlias()" })
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Alias, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(m => m.Alias, new { @class = "form-control", @id = "product-alias", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(m => m.Alias)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Image, new { @class = "form-control-label" })
+                        @Html.HiddenFor(m => m.Image, new { @class = "form-control", @id = "product-image" })
+                        <button id="btnSelectImage" type="button" class="btn btn-default" onclick="chooseImage()">Choose image</button>
+                        @Html.ValidationMessageFor(m => m.Image)
+                    </div>
+                    <div class="form-group">
+                        <img id="img" style="height:100px" src="@Model.Image"/>
+                        <button type="button" id="btn-delete-image" class="btn-danger hide" onclick="deleteImage()">Delete</button>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Description, new { @class = "form-control-label" })
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @id = "product-category" })
+                        @Html.ValidationMessageFor(m => m.Description)
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -13,10 +13,12 @@ namespace Zoomsocks.WebUI.MappingProfiles
         public static void Configure()
         {
             Mapper.CreateMap<ProductCategory, ProductCategoryViewModel>();
-            Mapper.CreateMap<ProductCategoryViewModel, ProductCategory>();
+
+            Mapper.CreateMap<ProductCategoryViewModel, ProductCategory>();         
 
             Mapper.CreateMap<Product, ProductViewModel>();
-            Mapper.CreateMap<ProductViewModel, Product>();
+
+            Mapper.CreateMap<ProductViewModel, Product>();                
         }
     }
 }

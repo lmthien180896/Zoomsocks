@@ -32,16 +32,9 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
         {
             var viewModel = new ProductViewModel();
 
-            LoadCategories();
+            LoadCategories(viewModel);
 
-            return PartialView("_Create", viewModel);
-
-            void LoadCategories()
-            {
-                var productCategories = productCategoryService.GetAll();
-                
-                viewModel.Categories = productCategories.Select(p => new SelectListItem() { Text = p.Name, Value = p.Name}).ToArray();
-            }
+            return PartialView("_Create", viewModel);            
         }
 
         [HttpPost]
@@ -51,12 +44,13 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             {
                 return Json(new { success = false });
             }
-            var productCategory = Mapper.Map<Product>(viewModel);
+            
+            var product = Mapper.Map<Product>(viewModel);
 
-            productService.Add(productCategory);
+            productService.Add(product);
             productService.SaveChanges();
 
-            return Json(new { success = true, name = productCategory.Name });
+            return Json(new { success = true, name = product.Name });
         }
 
         [HttpGet]
@@ -69,18 +63,23 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
         public JsonResult LoadAll()
         {
             var products = productService.GetAll();
+
             var listProduct = Mapper.Map<IEnumerable<ProductViewModel>>(products);
+            foreach (var product in listProduct)
+            {
+                product.Category = productCategoryService.GetById(product.ProductCategoryId).Name;
+            }
 
             return Json(new
             {
-                list = products
+                list = listProduct.OrderBy(x => x.Category)
             }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult Delete(Guid productId, string name)
         {
-            return PartialView("_Delete", new ProductCategoryViewModel
+            return PartialView("_Delete", new ProductViewModel
             {
                 Id = productId,
                 Name = name
@@ -102,6 +101,8 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             var product = productService.GetById(id);
             var viewModel = Mapper.Map<ProductViewModel>(product);
 
+            LoadCategories(viewModel);
+
             return PartialView("_Edit", viewModel);
         }
 
@@ -119,6 +120,13 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             productService.SaveChanges();
 
             return Json(new { success = true, data = product, JsonRequestBehavior.AllowGet });
+        }
+
+        private void LoadCategories(ProductViewModel viewModel)
+        {
+            var productCategories = productCategoryService.GetAll();
+
+            viewModel.Categories = productCategories.Select(p => new SelectListItem() { Text = p.Name, Value = p.Id.ToString() }).ToArray();
         }
     }
 }

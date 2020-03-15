@@ -8,6 +8,11 @@ namespace Zoomsocks.WebUI.ViewModels
 {
     public class ProductViewModel
     {
+        public ProductViewModel()
+        {
+            Id = Guid.NewGuid();
+        }
+
         public Guid Id { get; set; }
 
         public string Name { get; set; }
@@ -20,6 +25,8 @@ namespace Zoomsocks.WebUI.ViewModels
 
         public SelectListItem[] Categories { get; set; }
 
-        public ProductCategoryViewModel ProductCategory { get; set; }
+        public Guid ProductCategoryId { get; set; }
+
+        public string Category { get; set; }
     }
 }

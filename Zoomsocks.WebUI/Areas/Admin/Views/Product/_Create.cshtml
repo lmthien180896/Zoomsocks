@@ -17,9 +17,9 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        @Html.LabelFor(m => m.ProductCategory.Name, new { @class = "form-control-label" })
-                        @Html.DropDownListFor(m => m.ProductCategory, Model.Categories, "Select category", new { @class = "form-control", @id = "product-category" })
-                        @Html.ValidationMessageFor(m => m.ProductCategory.Name)
+                        <label class="form-control-label">Category</label>
+                        @Html.DropDownListFor(m => m.ProductCategoryId, Model.Categories, "Select category", new { @class = "form-control", @id = "product-category" })
+                        @Html.ValidationMessageFor(m => m.ProductCategoryId)
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Name, new { @class = "form-control-label" })
@@ -33,8 +33,13 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Image, new { @class = "form-control-label" })
-                        @Html.TextBoxFor(m => m.Image, new { @type = "file", @class = "form-control", @id = "product-image" })
+                        @Html.HiddenFor(m => m.Image, new { @class = "form-control", @id = "product-image"})                        
+                        <button id="btnSelectImage" type="button" class="btn btn-default" onclick="chooseImage()">Choose image</button>
                         @Html.ValidationMessageFor(m => m.Image)
+                    </div>
+                    <div class="form-group">
+                        <img id="img" style="height:100px" />
+                        <button type="button" id="btn-delete-image" class="btn-danger hide" onclick="deleteImage()">Delete</button>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Description, new { @class = "form-control-label" })
