@@ -11,6 +11,11 @@ namespace Zoomsocks.WebUI.Controllers
         public ActionResult Home()
         {
             return View();
-        }       
+        }
+
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
     }
 }

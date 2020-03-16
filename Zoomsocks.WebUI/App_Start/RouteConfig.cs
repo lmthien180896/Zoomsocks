@@ -15,8 +15,15 @@ namespace Zoomsocks.WebUI
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                url: "",
+                defaults: new { controller = "Home", action = "Home", id = UrlParameter.Optional },
+                namespaces: new[] { "Zoomsocks.WebUI.Controllers" }
+            );
+
+            routes.MapRoute(
+                name: "About Us",
+                url: "about-us",
+                defaults: new { controller = "Home", action = "AboutUs", id = UrlParameter.Optional },
                 namespaces: new[] { "Zoomsocks.WebUI.Controllers" }
             );
         }
