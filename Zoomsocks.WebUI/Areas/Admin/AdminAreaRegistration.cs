@@ -17,7 +17,7 @@ namespace Zoomsocks.WebUI.Areas.Admin
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional },
+                new { action = "Admin", controller = "Admin", id = UrlParameter.Optional },
                 namespaces: new[] { "Zoomsocks.WebUI.Areas.Admin.Controllers" }
             );
         }

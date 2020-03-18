@@ -21,15 +21,11 @@
     <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/css/main.css">
 </head>
 <body class="animsition">
-    @Html.Partial("_MainMenu")
-    @Html.Partial("_SideMenu")
+    @{Html.RenderAction("Menu", "Home");}
 
-    @RenderBody()       
-    
-    @Html.Partial("_Footer")    
+    @RenderBody()
 
-    @Html.Partial("_ImageModal")
-    
+    @Html.Partial("_Footer")
 
     <!--===============================================================================================-->
     <script src="/frontend/zoomsocks/vendor/jquery/jquery-3.2.1.min.js"></script>

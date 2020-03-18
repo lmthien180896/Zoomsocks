@@ -23,6 +23,8 @@ namespace Zoomsocks.Service
 
         ProductCategory GetById(Guid id);
 
+        ProductCategory GetByAlias(string alias);
+
         void SaveChanges();
     }
 
@@ -71,6 +73,11 @@ namespace Zoomsocks.Service
         public void SaveChanges()
         {
             unitOfWork.Commit();
-        }        
+        }
+
+        public ProductCategory GetByAlias(string alias)
+        {
+            return productCategoryRepository.GetSingleByCondition(x => x.Alias == alias);
+        }
     }
 }

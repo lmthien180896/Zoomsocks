@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Zoomsocks.WebUI.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class AdminController : Controller
     {
         public ActionResult Admin()
         {

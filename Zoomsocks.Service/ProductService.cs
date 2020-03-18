@@ -21,6 +21,8 @@ namespace Zoomsocks.Service
 
         IEnumerable<Product> GetAllPaging(int page, int pageSize, out int totalRow);
 
+        IEnumerable<Product> GetByCategory(Guid id);
+
         Product GetById(Guid id);
 
         void SaveChanges();
@@ -28,49 +30,54 @@ namespace Zoomsocks.Service
 
     public class ProductService : IProductService
     {
-        IProductRepository ProductRepository;
+        IProductRepository productRepository;
         IUnitOfWork unitOfWork;
 
         public ProductService(IProductRepository ProductRepository, IUnitOfWork unitOfWork)
         {
-            this.ProductRepository = ProductRepository;
+            this.productRepository = ProductRepository;
             this.unitOfWork = unitOfWork;
         }
 
         public void Add(Product Product)
         {
-            ProductRepository.Add(Product);
+            productRepository.Add(Product);
         }
 
         public void Delete(Guid id)
         {
-            ProductRepository.Delete(id);
+            productRepository.Delete(id);
 
         }
 
         public IEnumerable<Product> GetAll()
         {
-            return ProductRepository.GetAll();
+            return productRepository.GetAll();
         }
 
         public IEnumerable<Product> GetAllPaging(int page, int pageSize, out int totalRow)
         {
-            return ProductRepository.GetMultiPaging(out totalRow, page, pageSize);
+            return productRepository.GetMultiPaging(out totalRow, page, pageSize);
         }
 
         public Product GetById(Guid id)
         {
-            return ProductRepository.GetSingleById(id);
+            return productRepository.GetSingleById(id);
         }
 
         public void Update(Product Product)
         {
-            ProductRepository.Update(Product);
+            productRepository.Update(Product);
         }
 
         public void SaveChanges()
         {
             unitOfWork.Commit();
+        }
+
+        public IEnumerable<Product> GetByCategory(Guid id)
+        {
+            return productRepository.GetMulti(x => x.ProductCategoryId == id);
         }
     }
 }
