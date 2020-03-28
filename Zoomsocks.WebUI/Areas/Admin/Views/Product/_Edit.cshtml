@@ -39,8 +39,25 @@
                         @Html.ValidationMessageFor(m => m.Image)
                     </div>
                     <div class="form-group">
-                        <img id="img" style="height:100px" src="@Model.Image"/>
+                        <img id="img" style="height:100px" src="@Model.Image" />
                         <button type="button" id="btn-delete-image" class="btn-danger hide" onclick="deleteImage()">Delete</button>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.MoreImages, new { @class = "form-control-label" })
+                        @Html.TextBoxFor(m => m.MoreImages, new { @class = "form-control", @id = "product-more-images" })
+                        <button id="btnSelectMoreImage" type="button" class="btn btn-default" onclick="chooseMoreImages()">Upload more images</button>
+                        @Html.ValidationMessageFor(m => m.Image)
+                    </div>
+                    <div id="imagelist">
+                        @foreach (var imageSource in Model.MoreImagesList)
+                        {
+                            <div class="image-item">
+                                <img src='@imageSource' style="height: 100px" />
+                                <button type="button" class="btn-danger" onclick="deleteMoreImage(event)">
+                                    Delete
+                                </button>
+                            </div>
+                        }
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Description, new { @class = "form-control-label" })

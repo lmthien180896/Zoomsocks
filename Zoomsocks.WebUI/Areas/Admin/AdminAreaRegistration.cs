@@ -15,6 +15,13 @@ namespace Zoomsocks.WebUI.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
+                "Admin_page",
+                "zoomsocks-admin",
+                new { action = "Admin", controller = "Admin", id = UrlParameter.Optional },
+                namespaces: new[] { "Zoomsocks.WebUI.Areas.Admin.Controllers" }
+            );
+
+            context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
                 new { action = "Admin", controller = "Admin", id = UrlParameter.Optional },

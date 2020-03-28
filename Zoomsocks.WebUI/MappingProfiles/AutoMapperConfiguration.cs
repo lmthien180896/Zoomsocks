@@ -14,11 +14,17 @@ namespace Zoomsocks.WebUI.MappingProfiles
         {
             Mapper.CreateMap<ProductCategory, ProductCategoryViewModel>();
 
-            Mapper.CreateMap<ProductCategoryViewModel, ProductCategory>();         
+            Mapper.CreateMap<ProductCategoryViewModel, ProductCategory>();
 
-            Mapper.CreateMap<Product, ProductViewModel>();
+            Mapper.CreateMap<Product, ProductViewModel>()
+                .ForMember(dest => dest.MoreImagesList, opt => opt.ResolveUsing(src => GetMoreImagesList(src.MoreImages)));           
 
-            Mapper.CreateMap<ProductViewModel, Product>();                
-        }
+            Mapper.CreateMap<ProductViewModel, Product>();
+
+            string[] GetMoreImagesList(string moreImages)
+            {
+                return moreImages.Split(',');
+            }
+        }        
     }
 }

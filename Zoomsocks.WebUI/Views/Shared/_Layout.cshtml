@@ -5,18 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="images/icons/favicon.png" />
-    <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/fonts/iconic/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/fonts/linearicons-v1.0.0/icon-font.min.css">
-    <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/vendor/animate/animate.css">
-    <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/vendor/css-hamburgers/hamburgers.min.css">
-    <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/vendor/animsition/css/animsition.min.css">
-    <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/vendor/select2/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/vendor/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/vendor/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/vendor/MagnificPopup/magnific-popup.css">
-    <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <link href="~/frontend/zoomsocks/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/frontend/zoomsocks/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/frontend/zoomsocks/fonts/iconic/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <link href="~/frontend/zoomsocks/css/icon-font.min.css" rel="stylesheet" />
+    <link href="~/frontend/zoomsocks/css/animate.css" rel="stylesheet" />
+    <link href="~/frontend/zoomsocks/css/hamburgers.min.css" rel="stylesheet" />
+    <link href="~/frontend/zoomsocks/css/animsition.min.css" rel="stylesheet" />
+    <link href="~/frontend/zoomsocks/css/select2.min.css" rel="stylesheet" />
+    <link href="~/frontend/zoomsocks/css/daterangepicker.css" rel="stylesheet" />
+    <link href="~/frontend/zoomsocks/css/slick.css" rel="stylesheet" />
+    <link href="~/frontend/zoomsocks/css/magnific-popup.css" rel="stylesheet" />
+    <link href="~/frontend/zoomsocks/css/perfect-scrollbar.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/css/util.css">
     <link rel="stylesheet" type="text/css" href="/frontend/zoomsocks/css/main.css">
 </head>
@@ -27,15 +27,21 @@
 
     @Html.Partial("_Footer")
 
-    <!--===============================================================================================-->
-    <script src="/frontend/zoomsocks/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="/frontend/zoomsocks/vendor/animsition/js/animsition.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="/frontend/zoomsocks/vendor/bootstrap/js/popper.js"></script>
-    <script src="/frontend/zoomsocks/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="/frontend/zoomsocks/vendor/select2/select2.min.js"></script>
+    <script src="~/frontend/common/js/jquery-3.2.1.min.js"></script>
+    <script src="~/frontend/zoomsocks/js/animsition.min.js"></script>
+    <script src="~/frontend/zoomsocks/js/popper.min.js"></script>
+    <script src="~/frontend/zoomsocks/js/bootstrap.min.js"></script>
+    <script src="~/frontend/zoomsocks/js/select2.min.js"></script>
+    <script src="~/frontend/common/js/moment.min.js"></script>
+    <script src="~/frontend/zoomsocks/js/daterangepicker.js"></script>
+    <script src="~/frontend/zoomsocks/js/slick.min.js"></script>
+    <script src="/frontend/zoomsocks/js/slick-custom.js"></script>
+    <script src="~/frontend/zoomsocks/js/parallax100.js"></script>
+    <script src="~/frontend/zoomsocks/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/frontend/zoomsocks/js/isotope.pkgd.min.js"></script>
+    <script src="~/frontend/zoomsocks/js/sweetalert.min.js"></script>
+    <script src="~/frontend/zoomsocks/js/perfect-scrollbar.min.js"></script>
+    <script src="/frontend/zoomsocks/js/main.js"></script>
     <script>
         $(".js-select2").each(function () {
             $(this).select2({
@@ -43,21 +49,7 @@
                 dropdownParent: $(this).next('.dropDownSelect2')
             });
         })
-    </script>
-    <!--===============================================================================================-->
-    <script src="/frontend/zoomsocks/vendor/daterangepicker/moment.min.js"></script>
-    <script src="/frontend/zoomsocks/vendor/daterangepicker/daterangepicker.js"></script>
-    <!--===============================================================================================-->
-    <script src="/frontend/zoomsocks/vendor/slick/slick.min.js"></script>
-    <script src="/frontend/zoomsocks/js/slick-custom.js"></script>
-    <!--===============================================================================================-->
-    <script src="/frontend/zoomsocks/vendor/parallax100/parallax100.js"></script>
-    <script>
-        $('.parallax100').parallax100();
-    </script>
-    <!--===============================================================================================-->
-    <script src="/frontend/zoomsocks/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-    <script>
+
         $('.gallery-lb').each(function () { // the containers for all your galleries
             $(this).magnificPopup({
                 delegate: 'a', // the selector for gallery item
@@ -68,49 +60,9 @@
                 mainClass: 'mfp-fade'
             });
         });
-    </script>
-    <!--===============================================================================================-->
-    <script src="/frontend/zoomsocks/vendor/isotope/isotope.pkgd.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="/frontend/zoomsocks/vendor/sweetalert/sweetalert.min.js"></script>
-    <script>
-        $('.js-addwish-b2').on('click', function (e) {
-            e.preventDefault();
-        });
 
-        $('.js-addwish-b2').each(function () {
-            var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-            $(this).on('click', function () {
-                swal(nameProduct, "is added to wishlist !", "success");
+        $('.parallax100').parallax100();
 
-                $(this).addClass('js-addedwish-b2');
-                $(this).off('click');
-            });
-        });
-
-        $('.js-addwish-detail').each(function () {
-            var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-
-            $(this).on('click', function () {
-                swal(nameProduct, "is added to wishlist !", "success");
-
-                $(this).addClass('js-addedwish-detail');
-                $(this).off('click');
-            });
-        });
-
-        /*---------------------------------------------*/
-
-        $('.js-addcart-detail').each(function () {
-            var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-            $(this).on('click', function () {
-                swal(nameProduct, "is added to cart !", "success");
-            });
-        });
-    </script>
-    <!--===============================================================================================-->
-    <script src="/frontend/zoomsocks/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script>
         $('.js-pscroll').each(function () {
             $(this).css('position', 'relative');
             $(this).css('overflow', 'hidden');
@@ -125,8 +77,6 @@
             })
         });
     </script>
-    <!--===============================================================================================-->
-    <script src="/frontend/zoomsocks/js/main.js"></script>
-
+    @RenderSection("js", false)
 </body>
 </html>

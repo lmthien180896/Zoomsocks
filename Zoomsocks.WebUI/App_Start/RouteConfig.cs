@@ -16,7 +16,7 @@ namespace Zoomsocks.WebUI
             routes.MapRoute(
                 name: "category",
                 url: "category/{alias}",
-                defaults: new { controller = "Category", action = "ProductsByCategory", alias = UrlParameter.Optional },
+                defaults: new { controller = "ProductCategory", action = "ProductsByCategory", alias = UrlParameter.Optional },
                 namespaces: new[] { "Zoomsocks.WebUI.Controllers" }
             );
 
@@ -38,7 +38,7 @@ namespace Zoomsocks.WebUI
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Home", id = UrlParameter.Optional },
-                namespaces: new[] { "CIS.Web.Controllers" }
+                namespaces: new[] { "Zoomsocks.WebUI.Controllers" }
             );
         }
     }

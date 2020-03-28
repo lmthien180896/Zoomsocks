@@ -15,6 +15,8 @@ namespace Zoomsocks.Model.Models
 
         public string Image { get; set; }
 
+        public string MoreImages { get; set; }
+
         public Guid ProductCategoryId { get; set; }
 
         [ForeignKey("ProductCategoryId")]

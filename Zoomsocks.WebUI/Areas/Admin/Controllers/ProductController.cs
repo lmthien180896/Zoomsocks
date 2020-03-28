@@ -102,8 +102,21 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             var viewModel = Mapper.Map<ProductViewModel>(product);
 
             LoadCategories(viewModel);
+            SplitMoreImages(viewModel);
 
             return PartialView("_Edit", viewModel);
+        }
+
+        private void LoadCategories(ProductViewModel viewModel)
+        {
+            var productCategories = productCategoryService.GetAll();
+
+            viewModel.Categories = productCategories.Select(p => new SelectListItem() { Text = p.Name, Value = p.Id.ToString() }).ToArray();
+        }
+
+        private void SplitMoreImages(ProductViewModel viewModel)
+        {
+            viewModel.MoreImagesList = viewModel.MoreImages.Split(',');            
         }
 
         [HttpPost]
@@ -120,13 +133,6 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             productService.SaveChanges();
 
             return Json(new { success = true, data = product, JsonRequestBehavior.AllowGet });
-        }
-
-        private void LoadCategories(ProductViewModel viewModel)
-        {
-            var productCategories = productCategoryService.GetAll();
-
-            viewModel.Categories = productCategories.Select(p => new SelectListItem() { Text = p.Name, Value = p.Id.ToString() }).ToArray();
-        }
+        }        
     }
 }
