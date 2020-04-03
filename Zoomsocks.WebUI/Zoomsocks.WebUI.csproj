@@ -185,6 +185,9 @@
     <Content Include="frontend\admin\css\bootstrap.min.css" />
     <Content Include="frontend\admin\css\datepicker3.css" />
     <Content Include="frontend\admin\js\bootstrap.min.js" />
+    <Content Include="frontend\admin\js\dataTables.bootstrap.min.js" />
+    <Content Include="frontend\admin\js\features\product-create.js" />
+    <Content Include="frontend\admin\js\jquery.dataTables.min.js" />
     <Content Include="frontend\zoomsocks\css\bootstrap.min.css" />
     <Content Include="frontend\common\js\moment.min.js" />
     <Content Include="frontend\fonts\fontawesome-webfont.svg" />
@@ -914,7 +917,7 @@
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
     <Content Include="Areas\Admin\Views\Product\List.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\_Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
     <Content Include="frontend\admin\js\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <Content Include="frontend\admin\js\ckfinder\userfiles\.htaccess" />
     <Content Include="Areas\Admin\Views\Product\_Edit.cshtml" />
@@ -1014,6 +1017,7 @@
     <Content Include="frontend\zoomsocks\fonts\Poppins\Poppins-SemiBoldItalic.ttf" />
     <Content Include="frontend\zoomsocks\fonts\Poppins\Poppins-Thin.ttf" />
     <Content Include="frontend\zoomsocks\fonts\Poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="Areas\Admin\Views\Shared\_PreparedMessagePartial.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1044,7 +1048,7 @@
     <Content Include="Views\Shared\_Slides.cshtml" />
     <Content Include="Views\Shared\_Banner.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\ProductCategory\_QuickViewProduct.cshtml" />
+    <Content Include="Views\Product\_QuickViewProduct.cshtml" />
     <Content Include="Views\Shared\_InstagramPhotos.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
     <Content Include="Views\ProductCategory\ProductsByCategory.cshtml" />
@@ -1053,7 +1057,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="frontend\common\css\" />
     <Folder Include="uploadedFiles\products\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -1084,6 +1087,10 @@
     <ProjectReference Include="..\Zoomsocks.Service\Zoomsocks.Service.csproj">
       <Project>{443a5f62-7d68-4503-a624-313a5c26e75c}</Project>
       <Name>Zoomsocks.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zoomsocks.WebUI.Shared\Zoomsocks.WebUI.Shared.csproj">
+      <Project>{69bb374d-3c54-4fb5-9934-79ea8c1b4aac}</Project>
+      <Name>Zoomsocks.WebUI.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

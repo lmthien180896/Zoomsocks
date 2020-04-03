@@ -1,0 +1,131 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using Zoomsocks.WebUI.ViewModels
+@model ProductViewModel
+
+<section class="content-header">
+    <h1>
+        Product Management
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    @if (Model.IsCreateWizard)
+                    {
+                        <h3 class="box-title">Create a new product</h3>
+                    }
+                    else
+                    {
+                        <h3 class="box-title">Edit @Model.Name</h3>
+                    }
+                </div>
+                @using (Html.BeginForm(Model.CallBackMethod, "Product", FormMethod.Post, new { area = "Admin", id = "create-policy-form", @class = "key-submitting-disabled", enctype = "multipart/form-data" }))
+                {
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(m => m.Categories, new { @class = "form-control-label" })
+                                </div>
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(m => m.ProductCategoryId, Model.Categories, "Select category", new { @class = "form-control", @id = "product-category" })
+                                    @Html.ValidationMessageFor(m => m.ProductCategoryId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(m => m.Name, new { @class = "form-control-label" })
+                                </div>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "product-name", @autocomplete = "off", @onkeyup = "generateAlias()" })
+                                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(m => m.Alias, new { @class = "form-control-label" })
+                                </div>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Alias, new { @class = "form-control", @id = "product-alias", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(m => m.Alias, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(m => m.Image, new { @class = "form-control-label" })
+                                </div>
+                                <div class="col-md-10">
+                                    @Html.HiddenFor(m => m.Image, new { @class = "form-control", @id = "product-image" })
+                                    <button id="btn-upload-image" type="button" class="btn btn-primary">Upload image</button>
+                                    <div class="row" id="main-image-section">
+                                        <div class="col-md-3">
+                                            <img id="main-image" class="img-preview" src="@Model.Image"/>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Image, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(m => m.MoreImages, new { @class = "form-control-label" })
+                                </div>
+                                <div class="col-md-10">
+                                    <button id="btn-upload-more-images" type="button" class="btn btn-primary">Upload more images</button>
+                                    <div id="more-images-section" class="col-md-12 row">
+                                        @if (Model.MoreImagesList != null)
+                                        {                                            
+                                            foreach (var img in Model.MoreImagesList)
+                                            {
+                                            <div id="more-img">
+                                                <img class="img-preview" src="@img" />
+                                                <button type="button" class="btn btn-danger" id="btn-remove-img">Remove</button>
+                                                <input type="text" name="MoreImagesList" value="@img" hidden>
+                                            </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(m => m.Description, new { @class = "form-control-label" })
+                                </div>
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @id = "product-description" })
+                                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a href="/Admin/Product/List" class="btn btn-default">Back</a>
+                        <button type="submit" class="btn btn-success">@(Model.IsCreateWizard ? "Create" : "Update")</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section js {
+    <script src="~/frontend/admin/js/features/product-create.js"></script>
+    <script src="~/frontend/admin/js/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript">
+        initializeViewScript();
+    </script>
+}

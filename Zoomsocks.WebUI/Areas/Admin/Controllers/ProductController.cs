@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 using Zoomsocks.Common;
 using Zoomsocks.Model.Models;
 using Zoomsocks.Service;
+using Zoomsocks.WebUI.Shared.Mvc;
 using Zoomsocks.WebUI.ViewModels;
 
 namespace Zoomsocks.WebUI.Areas.Admin.Controllers
@@ -33,24 +35,31 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             var viewModel = new ProductViewModel();
 
             LoadCategories(viewModel);
+            viewModel.IsCreateWizard = true;
 
-            return PartialView("_Create", viewModel);            
+            return View("Create", viewModel);            
         }
 
         [HttpPost]
-        public JsonResult Create(ProductViewModel viewModel)
+        public ActionResult Create(ProductViewModel viewModel)
         {
+            LoadCategories(viewModel);
+
             if (!ModelState.IsValid)
             {
-                return Json(new { success = false });
+                this.PrepareErrorMessage("Cannot create this product.");
+                return View("Create", viewModel);
             }
-            
-            var product = Mapper.Map<Product>(viewModel);
 
+            viewModel.MoreImages = JsonConvert.SerializeObject(viewModel.MoreImagesList);
+
+            var product = Mapper.Map<Product>(viewModel);
             productService.Add(product);
             productService.SaveChanges();
 
-            return Json(new { success = true, name = product.Name });
+            this.PrepareSuccessMessage($"{product.Name} has been created.");
+
+            return View("List");
         }
 
         [HttpGet]
@@ -92,7 +101,7 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             productService.Delete(id);
             productService.SaveChanges();
 
-            return RedirectToAction("List");
+            return View("List");
         }
 
         [HttpGet]
@@ -102,9 +111,10 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             var viewModel = Mapper.Map<ProductViewModel>(product);
 
             LoadCategories(viewModel);
-            SplitMoreImages(viewModel);
+            viewModel.MoreImagesList = JsonConvert.DeserializeObject<string[]>(viewModel.MoreImages);
+            viewModel.IsCreateWizard = false;
 
-            return PartialView("_Edit", viewModel);
+            return View("Create", viewModel);
         }
 
         private void LoadCategories(ProductViewModel viewModel)
@@ -114,25 +124,26 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             viewModel.Categories = productCategories.Select(p => new SelectListItem() { Text = p.Name, Value = p.Id.ToString() }).ToArray();
         }
 
-        private void SplitMoreImages(ProductViewModel viewModel)
-        {
-            viewModel.MoreImagesList = viewModel.MoreImages.Split(',');            
-        }
-
         [HttpPost]
-        public JsonResult Edit(ProductViewModel viewModel)
+        public ActionResult Edit(ProductViewModel viewModel)
         {
+            LoadCategories(viewModel);
+
             if (!ModelState.IsValid)
             {
-                return Json(new { success = false, JsonRequestBehavior.AllowGet });
+                this.PrepareErrorMessage("Cannot create this product.");
+                return View("Create", viewModel);
             }
 
-            var product = Mapper.Map<Product>(viewModel);
+            viewModel.MoreImages = JsonConvert.SerializeObject(viewModel.MoreImagesList);
 
+            var product = Mapper.Map<Product>(viewModel);
             productService.Update(product);
             productService.SaveChanges();
 
-            return Json(new { success = true, data = product, JsonRequestBehavior.AllowGet });
-        }        
+            this.PrepareErrorMessage($"{product.Name} has been updated successfully.");
+
+            return View("List");
+        }
     }
 }

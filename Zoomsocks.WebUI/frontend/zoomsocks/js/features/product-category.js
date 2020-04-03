@@ -1,22 +1,22 @@
-﻿function showQuickViewProduct(id) {
+﻿function registerQuickViewProductOnClickedEvent(id) {
     $.ajax({
         cache: false,
-        url: '/Products/QuickView',
+        url: '/Product/QuickView',
         type: 'GET',
         data: {
             productId: id
         },
         success: function (htmlResult) {
-            let $modal = $(htmlResult).appendTo('body').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
-            $modal.on('hidden.bs.modal', function () {
-                $modal.remove();
-            });
+            $(htmlResult).appendTo('.modal-quickview');
+            
+            $('.js-modal1').addClass('show-modal1');
         },
         error: function (err) {
             console.log(err);
         }
     });
+}
+
+function hideQuickViewModal() {
+    $('.js-modal1').removeClass('show-modal1');
 }
