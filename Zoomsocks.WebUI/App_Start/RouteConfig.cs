@@ -14,6 +14,13 @@ namespace Zoomsocks.WebUI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "product-details",
+               url: "product-details/{alias}",
+               defaults: new { controller = "Product", action = "Details", alias = UrlParameter.Optional },
+               namespaces: new[] { "Zoomsocks.WebUI.Controllers" }
+           );
+
+            routes.MapRoute(
                 name: "category",
                 url: "category/{alias}",
                 defaults: new { controller = "ProductCategory", action = "ProductsByCategory", alias = UrlParameter.Optional },
@@ -21,14 +28,14 @@ namespace Zoomsocks.WebUI
             );
 
             routes.MapRoute(
-                name: "About Us",
+                name: "about us",
                 url: "about-us",
                 defaults: new { controller = "Home", action = "AboutUs", id = UrlParameter.Optional },
                 namespaces: new[] { "Zoomsocks.WebUI.Controllers" }
             );
 
             routes.MapRoute(
-                name: "Home",
+                name: "home",
                 url: "",
                 defaults: new { controller = "Home", action = "Home", id = UrlParameter.Optional },
                 namespaces: new[] { "Zoomsocks.WebUI.Controllers" }

@@ -25,6 +25,10 @@ namespace Zoomsocks.Service
 
         Product GetById(Guid id);
 
+        Product GetByAlias(string alias);
+
+        bool DoesNameExist(string name, Guid categoryId);
+
         void SaveChanges();
     }
 
@@ -78,6 +82,16 @@ namespace Zoomsocks.Service
         public IEnumerable<Product> GetByCategory(Guid id)
         {
             return productRepository.GetMulti(x => x.ProductCategoryId == id);
+        }
+
+        public Product GetByAlias(string alias)
+        {
+            return productRepository.GetSingleByCondition(x => x.Alias == alias);
+        }
+
+        public bool DoesNameExist(string name, Guid categoryId)
+        {
+            return productRepository.GetSingleByCondition(x => x.Name == name && x.ProductCategoryId == categoryId) != null;
         }
     }
 }

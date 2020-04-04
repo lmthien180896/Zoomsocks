@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Zoomsocks.WebUI.MappingProfiles
 
             string[] GetMoreImagesList(string moreImages)
             {
-                return moreImages.Split(',');
+                return JsonConvert.DeserializeObject<string[]>(moreImages);
             }
         }        
     }

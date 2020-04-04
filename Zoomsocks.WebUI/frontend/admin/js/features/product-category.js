@@ -2,8 +2,8 @@
     loadAll();
 });
 
-$(document).ready(function () {   
-    registerCreateButtonOnClickedEvent();    
+$(document).ready(function () {
+    registerCreateButtonOnClickedEvent();
 });
 
 function loadAll() {
@@ -94,30 +94,26 @@ function registerCategoryNameOnChangedEvent() {
     });
 }
 
-function registerEditButtonOnClickedEvent() {
-    $(".btn-edit-product-category").off('click').on('click', function () {
-        let id = $(this).data("id");
-
-        $.ajax({
-            cache: false,
-            url: '/Admin/ProductCategory/Edit',
-            data: {
-                id: id
-            },
-            type: 'GET',
-            success: function (htmlResult) {
-                let $modal = $(htmlResult).appendTo('body').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                });
-                $modal.on('hidden.bs.modal', function () {
-                    $modal.remove();
-                });
-            },
-            error: function () {
-                toastr.error('Cannot get this post category data.');
-            }
-        });
+function registerEditButtonOnClickedEvent(id) {
+    $.ajax({
+        cache: false,
+        url: '/Admin/ProductCategory/Edit',
+        data: {
+            id: id
+        },
+        type: 'GET',
+        success: function (htmlResult) {
+            let $modal = $(htmlResult).appendTo('body').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            $modal.on('hidden.bs.modal', function () {
+                $modal.remove();
+            });
+        },
+        error: function () {
+            toastr.error('Cannot get this post category data.');
+        }
     });
 }
 
@@ -134,7 +130,7 @@ function onSuccessEditPostCategory(jsonResponse) {
     }
 }
 
-function registerDeleteButtonOnClickedEvent(id, name) {    
+function registerDeleteButtonOnClickedEvent(id, name) {
     $.ajax({
         cache: false,
         url: '/Admin/ProductCategory/Delete',

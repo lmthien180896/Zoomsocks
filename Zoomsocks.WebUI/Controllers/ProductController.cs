@@ -18,13 +18,11 @@ namespace Zoomsocks.WebUI.Controllers
             this.productService = productService;
         }
 
-        [HttpGet]
-        public ActionResult QuickView(string productId)
-        {
-            var guidId = new Guid(productId);
-            var product = productService.GetById(guidId);
+        public ActionResult Details(string alias)
+        {            
+            var product = productService.GetByAlias(alias);                        
 
-            return PartialView("_QuickViewProduct", Mapper.Map<ProductViewModel>(product));
+            return PartialView("_Details", Mapper.Map<ProductViewModel>(product));
         }
     }
 }

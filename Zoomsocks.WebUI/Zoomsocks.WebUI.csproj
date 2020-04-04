@@ -186,8 +186,10 @@
     <Content Include="frontend\admin\css\datepicker3.css" />
     <Content Include="frontend\admin\js\bootstrap.min.js" />
     <Content Include="frontend\admin\js\dataTables.bootstrap.min.js" />
+    <Content Include="frontend\admin\js\fastclick.min.js" />
     <Content Include="frontend\admin\js\features\product-create.js" />
     <Content Include="frontend\admin\js\jquery.dataTables.min.js" />
+    <Content Include="frontend\admin\js\jquery.slimscroll.min.js" />
     <Content Include="frontend\zoomsocks\css\bootstrap.min.css" />
     <Content Include="frontend\common\js\moment.min.js" />
     <Content Include="frontend\fonts\fontawesome-webfont.svg" />
@@ -1048,10 +1050,10 @@
     <Content Include="Views\Shared\_Slides.cshtml" />
     <Content Include="Views\Shared\_Banner.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\Product\_QuickViewProduct.cshtml" />
     <Content Include="Views\Shared\_InstagramPhotos.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
     <Content Include="Views\ProductCategory\ProductsByCategory.cshtml" />
+    <Content Include="Views\Product\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

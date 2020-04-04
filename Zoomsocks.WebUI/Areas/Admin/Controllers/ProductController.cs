@@ -48,6 +48,18 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 this.PrepareErrorMessage("Cannot create this product.");
+                viewModel.IsCreateWizard = true;
+
+                return View("Create", viewModel);
+            }
+
+            if (DoesNameExist(viewModel.Name, viewModel.ProductCategoryId))
+            {
+                this.PrepareErrorMessage("Cannot create this product.");
+                ModelState.AddModelError("Name",
+                    $"This product name has already been used.");
+                viewModel.IsCreateWizard = true;
+
                 return View("Create", viewModel);
             }
 
@@ -59,7 +71,12 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
 
             this.PrepareSuccessMessage($"{product.Name} has been created.");
 
-            return View("List");
+            return View("List");            
+        }
+
+        private bool DoesNameExist(string name, Guid categoryId)
+        {
+            return productService.DoesNameExist(name, categoryId);
         }
 
         [HttpGet]
@@ -132,6 +149,18 @@ namespace Zoomsocks.WebUI.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 this.PrepareErrorMessage("Cannot create this product.");
+                viewModel.IsCreateWizard = false;
+
+                return View("Create", viewModel);
+            }
+
+            if (DoesNameExist(viewModel.Name, viewModel.ProductCategoryId))
+            {
+                this.PrepareErrorMessage("Cannot create this product.");
+                ModelState.AddModelError("Name",
+                    $"This product name has already been used.");
+                viewModel.IsCreateWizard = false;
+
                 return View("Create", viewModel);
             }
 
